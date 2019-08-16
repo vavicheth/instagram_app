@@ -99,7 +99,7 @@ class _MyHomeState extends State<MyHome> {
       backgroundColor: Colors.white30.withOpacity(0.9),
       leading: IconButton(
         disabledColor: Colors.black,
-          icon: Icon(InstagramApp.camera_outline),color: Colors.black,onPressed: null),
+          icon: Icon(InstagramApp.camera_empty_instagram),color: Colors.black,onPressed: null),
       title: Center(
         child: Container(
             padding: EdgeInsets.all(5.0),
@@ -111,14 +111,14 @@ class _MyHomeState extends State<MyHome> {
       ),
       actions: <Widget>[
         IconButton(
-            icon: Icon(Icons.airplay),
+            icon: Icon(InstagramApp.igtv_empty_instagram),
             iconSize: 30.0,
             color: Colors.black,
             onPressed: () {
               //TODO: Action play
             }),
         IconButton(
-            icon: Icon(InstagramApp.paper_plane_3),
+            icon: Icon(InstagramApp.send_empty_instagram),
             color: Colors.black,
             onPressed: () {
               //TODO: share
@@ -128,11 +128,10 @@ class _MyHomeState extends State<MyHome> {
   }
 
   _buildBody() {
-    return Container(
-      child: ListView(
-        children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(top: 5.0),
+
+    return ListView(
+      children: <Widget>[
+        SizedBox(
           height: 100.0,
           child: _buildListViewProfile(),
         ),
@@ -140,15 +139,33 @@ class _MyHomeState extends State<MyHome> {
           height: 1.5,
           color: Colors.grey.withOpacity(0.2),
         ),
-          Container(
-            padding: EdgeInsets.only(top: 5.0),
-            height: 600.0,
-
-            child: _buildListViewTimeline(),
-          ),
-        ],
-      ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height  - 200.0,
+          child: _buildListViewTimeline(),
+        ),
+      ],
     );
+
+//        return Container(
+////      child: _buildListViewTimeline(),
+//      child: ListView(
+//        children: <Widget>[
+//        Container(
+//          padding: EdgeInsets.only(top: 5.0),
+//          height: 100.0,
+//          child: _buildListViewProfile(),
+//        ),
+//        Container(
+//          height: 1.5,
+//          color: Colors.grey.withOpacity(0.2),
+//        ),
+//          Container(
+//            height: 450.0,
+//            child: _buildListViewTimeline(),
+//          ),
+//        ],
+//      ),
+//    );
   }
 
   _buildListViewProfile() {
@@ -263,7 +280,7 @@ class _MyHomeState extends State<MyHome> {
                   Container(
                     child: Container(
                       child: IconButton(
-                          icon: Icon(Icons.linear_scale), onPressed: null),
+                          icon: Icon(InstagramApp.dot_instagram), onPressed: null),
                     ),
                   ),
                 ],
@@ -290,17 +307,17 @@ class _MyHomeState extends State<MyHome> {
                   Row(
                     children: <Widget>[
                       IconButton(
-                          icon: Icon(InstagramApp.heart_empty_3),
+                          icon: Icon(InstagramApp.heart_empty_instagram),
                           onPressed: () {
                             //TODO: Like button
                           }),
                       IconButton(
-                          icon: Icon(InstagramApp.comment_3),
+                          icon: Icon(InstagramApp.dialog_empty_instagram),
                           onPressed: () {
                             //TODO: Comment button
                           }),
                       IconButton(
-                          icon: Icon(InstagramApp.paper_plane_3),
+                          icon: Icon(InstagramApp.send_empty_instagram),
                           onPressed: () {
                             //TODO: Share button
                           }),
@@ -310,7 +327,7 @@ class _MyHomeState extends State<MyHome> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       IconButton(
-                          icon: Icon(InstagramApp.bookmark_empty),
+                          icon: Icon(InstagramApp.bookmark_empty_instagram),
                           onPressed: () {
                             //TODO: Bookmark button
                           }),
@@ -321,34 +338,39 @@ class _MyHomeState extends State<MyHome> {
 
               Row(
                 children: <Widget>[
+                  SizedBox(width: 10.0,),
                   Text(
                     "${usertimeline.likes.toString()} Likes",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      text: "${usertimeline.name}  ",
+              Container(
+                margin: EdgeInsets.only(left: 10.0),
+                child: Column(
+                  children: <Widget>[
+                    RichText(
+                      text: TextSpan(
+                        text: "${usertimeline.name}  ",
 //                  style: DefaultTextStyle.of(context).style,
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: usertimeline.description,
-                            style: TextStyle(
-                                fontSize: 15.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal)),
-                      ],
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: usertimeline.description,
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal)),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Row(
                 children: <Widget>[
+                  SizedBox(width: 10.0,),
                   Container(
                     margin: EdgeInsets.only(top: 3.0),
                     child: Text(
@@ -358,7 +380,6 @@ class _MyHomeState extends State<MyHome> {
                   ),
                 ],
               ),
-
 
             ],
           ),
@@ -376,7 +397,7 @@ _buildBottomBar() {
       children: <Widget>[
         IconButton(
             icon: Icon(
-              InstagramApp.home_7,
+              InstagramApp.home_instagram,
 //              size: 35.0,
             ),
             onPressed: () {
@@ -384,8 +405,7 @@ _buildBottomBar() {
             }),
         IconButton(
             icon: Icon(
-              InstagramApp.search,
-
+              InstagramApp.search_empty_instagram,
             ),
             onPressed: () {
               //TODO: Search action
@@ -393,20 +413,21 @@ _buildBottomBar() {
         IconButton(
             icon: Icon(
               InstagramApp.plus_squared_alt,
+              size: 28.0,
             ),
             onPressed: () {
               //TODO: Add action
             }),
         IconButton(
             icon: Icon(
-              InstagramApp.heart_empty_3,
+              InstagramApp.heart_empty_instagram,
             ),
             onPressed: () {
               //TODO: Love action
             }),
         IconButton(
             icon: Icon(
-              InstagramApp.user_9,
+              InstagramApp.user_empty_instagram,
             ),
             onPressed: () {
               //TODO: Account action
